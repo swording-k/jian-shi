@@ -245,6 +245,7 @@
     if (!screen) return;
     root.appendChild(screen);
     screen.hidden = false;
+    screen.classList.add("show");
     screen.classList.remove("connected", "ended");
     if (keypad) keypad.hidden = true;
     root.querySelector("[data-call-name]").textContent = name;
@@ -256,22 +257,27 @@
     audio.setAttribute("playsinline", "");
     audio.preload = "auto";
     callClip = audio;
-    const unlock = audio.play();
-    if (unlock) unlock.then(() => { audio.pause(); audio.currentTime = 0; }).catch(() => {});
-    setTimeout(() => {
+    const begin = () => {
       if (run !== callRun) return;
       status.textContent = "通话中";
       screen.classList.add("connected");
-      audio.currentTime = 0;
-      audio.play().catch(() => { status.textContent = "接通了，点一下屏幕才能出声"; });
-      audio.addEventListener("ended", () => { if (run === callRun) hangUp(); });
-      let seconds = 0;
-      const time = root.querySelector("[data-call-time]");
-      callClock = setInterval(() => {
-        seconds += 1;
-        if (time) time.textContent = String(Math.floor(seconds / 60)).padStart(2, "0") + ":" + String(seconds % 60).padStart(2, "0");
-      }, 1000);
-    }, 900);
+      audio.play().then(() => {
+        if (!callClock) {
+          let seconds = 0;
+          const time = root.querySelector("[data-call-time]");
+          callClock = setInterval(() => {
+            seconds += 1;
+            if (time) time.textContent = String(Math.floor(seconds / 60)).padStart(2, "0") + ":" + String(seconds % 60).padStart(2, "0");
+          }, 1000);
+        }
+      }).catch(() => { status.textContent = "点一下屏幕出声"; });
+    };
+    audio.addEventListener("ended", () => { if (run === callRun) hangUp(); });
+    screen.addEventListener("click", (ev) => {
+      if (ev.target.closest("[data-hang], [data-mute]")) return;
+      if (status.textContent === "点一下屏幕出声") begin();
+    });
+    setTimeout(begin, 700);
   }
   function hangUp() {
     callRun += 1;
@@ -280,10 +286,11 @@
     const status = screens.querySelector("[data-call-status]");
     if (status) status.textContent = "已挂断";
     const screen = screens.querySelector("[data-call-screen]");
-    if (screen) screen.classList.add("ended");
+    if (screen) { screen.classList.add("ended"); screen.classList.remove("show"); }
     setTimeout(() => {
       if (!screen) return;
       screen.hidden = true;
+      screen.classList.remove("show");
       const keypad = screens.querySelector("[data-keypad]");
       if (keypad) keypad.hidden = false;
     }, 700);

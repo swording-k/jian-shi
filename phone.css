@@ -558,6 +558,9 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 2px solid 
 .call-go:disabled { opacity: .4; }
 
 /* ---------- 通话界面 ---------- */
+
+.call-screen[hidden], .dialer[hidden] { display: none !important; }
+.call-screen.show { display: flex !important; }
 .call-screen {
   position: absolute; inset: 0; z-index: 6;
   background: radial-gradient(circle at 50% 22%, #2c3a63, #0d111e 70%);
