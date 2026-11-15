@@ -668,12 +668,13 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 2px solid 
 }
 
 @media (max-width: 899px) {
-  .island { display: none; }
-  .status { top: env(safe-area-inset-top, 0px); height: 34px; padding-top: 0; }
+  .status, .island { display: none; }
   .phone { height: 100dvh; }
+  .nav { padding-top: calc(env(safe-area-inset-top, 0px) + 6px); min-height: 48px; }
+  .home { padding-top: calc(env(safe-area-inset-top, 0px) + 16px); }
+  .lockscreen { padding-top: calc(env(safe-area-inset-top, 0px) + 12vh); }
 }
-.ios-web { display: flex; flex-direction: column; height: 100%; min-height: 70vh; background: #fff; }
-.ios-url { padding: 8px 12px; font-size: 12px; color: #666; overflow: hidden; white-space: nowrap; }
-.ios-web iframe { flex: 1; width: 100%; border: 0; min-height: 68vh; background: #fff; }
-.scr-body .call-screen { position: absolute; }
-.scr.phone-app .scr-body { position: relative; min-height: 100%; }
+.scr-body.fill { display: flex; flex-direction: column; padding: 0; overflow: hidden; }
+.browser-view { flex: 1; min-height: 0; }
+.browser-view iframe { flex: 1; width: 100%; height: 100%; min-height: 0; border: 0; background: #fff; }
+.scr > .call-screen { position: absolute; inset: 0; z-index: 30; }

@@ -94,7 +94,7 @@
       return rows([row("data-finder-up", "全部文稿", "返回", "返"), ...items]);
     }
     const cats = ["个人产品", "开源贡献", "黑客松", "内容"];
-    return `<h2 class="big-title">访达</h2>` + rows(cats.map((cat) => {
+    return `` + rows(cats.map((cat) => {
       const n = p.projects.filter((item) => item.cat === cat).length;
       return row(`data-enter-cat="${cat}"`, cat, `${n} 项`, "文");
     }));
@@ -112,14 +112,14 @@
       </div>`;
   }
   function bodyFor(id) {
-    if (id === "notes") return `<h2 class="big-title">备忘录</h2>` + rows(p.notes.map((note) => `<div class="grow"><span class="col"><b class="fn">${note.title}</b><span class="fmeta">${note.body}</span></span></div>`));
+    if (id === "notes") return `` + rows(p.notes.map((note) => `<div class="grow"><span class="col"><b class="fn">${note.title}</b><span class="fmeta">${note.body}</span></span></div>`));
     if (id === "works") return finderHtml();
-    if (id === "safari") return `<h2 class="big-title">Safari</h2>` + rows(p.bookmarks.map((item) => row(`data-href="${item.href}" data-title="${item.name}"`, item.name, item.note, "网")));
-    if (id === "contact") return `<h2 class="big-title">通讯录</h2>` + rows([
+    if (id === "safari") return `` + rows(p.bookmarks.map((item) => row(`data-href="${item.href}" data-title="${item.name}"`, item.name, item.note, "网")));
+    if (id === "contact") return `` + rows([
       row('data-person="me"', p.name, p.role, p.name.slice(0,1)),
       ...p.links.map((item, i) => row(`data-person="link-${i}"`, item.name, "账号", item.name.slice(0,1)))
     ]) + `<div data-card></div>`;
-    if (id === "mail") return `<h2 class="big-title">邮件</h2><div class="mail-list"><button type="button" class="mail-row" data-mail="0"><b>欢迎来到这台手机</b><span>系统 · 刚刚</span></button></div><article class="mail-read"><h2>欢迎来到这台手机</h2><p>这不是一条往下滚的个人网站。作品在访达里，打电话会接通你自己录的那段声音。</p></article>`;
+    if (id === "mail") return `<div class="mail-list"><button type="button" class="mail-row" data-mail="0"><b>欢迎来到这台手机</b><span>系统 · 刚刚</span></button></div><article class="mail-read"><h2>欢迎来到这台手机</h2><p>这不是一条往下滚的个人网站。作品在访达里，打电话会接通你自己录的那段声音。</p></article>`;
     if (id === "phone") return phoneHtml();
     return `<div class="term"><pre>${log.join("\n")}</pre><form><span class="prompt">%</span><input aria-label="命令" autocomplete="off"></form></div>`;
   }
@@ -188,9 +188,10 @@
     if (href) {
       const url = href.dataset.href;
       if (url.startsWith("mailto:")) { location.href = url; return; }
-      open("safari", url.replace(/^https?:\/\//, "").slice(0, 28));
+      open("safari", "Safari");
       const body = screens.querySelector(`[data-app="safari"] .scr-body`);
-      body.innerHTML = `<div class="ios-web"><div class="ios-url">${url}</div><iframe title="页面" src="${url}"></iframe></div>`;
+      body.classList.add("fill");
+      body.innerHTML = `<div class="browser-view"><div class="browser-bar"><div class="url">${url}</div></div><iframe title="页面" src="${url}"></iframe></div>`;
       return;
     }
     const call = e.target.closest("[data-call]");
@@ -242,6 +243,7 @@
     const screen = root.querySelector("[data-call-screen]");
     const keypad = root.querySelector("[data-keypad]");
     if (!screen) return;
+    root.appendChild(screen);
     screen.hidden = false;
     screen.classList.remove("connected", "ended");
     if (keypad) keypad.hidden = true;
@@ -250,21 +252,26 @@
     status.textContent = "正在呼叫…";
     callRun += 1;
     const run = callRun;
+    const audio = new Audio("audio/" + encodeURIComponent("学海路") + ".m4a");
+    audio.setAttribute("playsinline", "");
+    audio.preload = "auto";
+    callClip = audio;
+    const unlock = audio.play();
+    if (unlock) unlock.then(() => { audio.pause(); audio.currentTime = 0; }).catch(() => {});
     setTimeout(() => {
       if (run !== callRun) return;
-      status.textContent = "已接通";
+      status.textContent = "通话中";
       screen.classList.add("connected");
-      const audio = new Audio("audio/学海路.m4a");
-      callClip = audio;
-      audio.play().catch(() => { status.textContent = "已接通，还没有录音"; });
+      audio.currentTime = 0;
+      audio.play().catch(() => { status.textContent = "接通了，点一下屏幕才能出声"; });
       audio.addEventListener("ended", () => { if (run === callRun) hangUp(); });
       let seconds = 0;
       const time = root.querySelector("[data-call-time]");
       callClock = setInterval(() => {
         seconds += 1;
-        time.textContent = String(Math.floor(seconds / 60)).padStart(2, "0") + ":" + String(seconds % 60).padStart(2, "0");
+        if (time) time.textContent = String(Math.floor(seconds / 60)).padStart(2, "0") + ":" + String(seconds % 60).padStart(2, "0");
       }, 1000);
-    }, 1600);
+    }, 900);
   }
   function hangUp() {
     callRun += 1;
