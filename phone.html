@@ -11,32 +11,44 @@
 <body>
   <div class="device">
     <div class="phone" data-presence>
-      <header class="status">
-        <span data-time>9:41</span>
-        <i class="island"></i>
-        <span class="glyphs" aria-hidden="true"><b class="sig"></b><b class="wifi"></b><b class="batt"></b></span>
+      <div class="wallpaper" aria-hidden="true"></div>
+
+      <header class="status" id="status">
+        <span class="status-time" data-time>9:41</span>
+        <i class="island" aria-hidden="true"></i>
+        <span class="glyphs" aria-hidden="true">
+          <svg class="sig" viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg>
+          <svg class="wifi" viewBox="0 0 16 12"><path d="M8 11.2a1.3 1.3 0 1 0 0-2.6 1.3 1.3 0 0 0 0 2.6z"/><path d="M5.3 8.3a3.9 3.9 0 0 1 5.4 0" fill="none" stroke-width="1.5" stroke-linecap="round"/><path d="M3 6a7.2 7.2 0 0 1 10 0" fill="none" stroke-width="1.5" stroke-linecap="round"/><path d="M.8 3.7a10.4 10.4 0 0 1 14.4 0" fill="none" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <span class="batt"><b></b></span>
+        </span>
       </header>
-      <section class="lock">
+
+      <section class="lockscreen" id="lockscreen">
+        <div class="lock-notice" aria-hidden="true"></div>
         <p class="lock-date" data-date></p>
         <p class="lock-time" data-time>9:41</p>
-        <div class="lock-bottom">
-          <span class="orb"></span>
-          <span class="orb cam"></span>
+        <div class="lock-tools">
+          <button type="button" class="orb" data-lock-tool="flashlight" aria-label="手电筒"></button>
+          <button type="button" class="orb cam" data-lock-tool="camera" aria-label="相机"></button>
         </div>
-        <p class="hint">向上轻扫以打开</p>
-        <i class="homebar"></i>
+        <div class="lock-unlock">
+          <button type="button" class="unlock-btn" id="unlock-btn">向上轻扫或点按以打开</button>
+        </div>
+        <i class="homebar" aria-hidden="true"></i>
       </section>
-      <div class="home hidden">
+
+      <main class="home" id="home">
         <p class="pill" data-presence-label>连接中</p>
-        <div class="grid"></div>
-        <nav class="dock" aria-label="程序坞"></nav>
-        <i class="homebar"></i>
+        <div class="grid" id="grid"></div>
+        <div class="pagedots" aria-hidden="true"><i class="on"></i><i></i></div>
+        <nav class="dockbar" id="dockbar" aria-label="程序坞"></nav>
+      </main>
+
+      <div id="screens"></div>
+
+      <div class="gesture-zone" id="gesture-zone" aria-hidden="true">
+        <i class="homebar" id="home-indicator"></i>
       </div>
-      <section class="sheet hidden">
-        <header class="sheet-head"><button type="button">主屏幕</button><h1></h1></header>
-        <div class="sheet-body"></div>
-        <i class="homebar dark"></i>
-      </section>
       <div class="cursors"></div>
     </div>
   </div>

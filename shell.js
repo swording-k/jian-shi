@@ -21,7 +21,7 @@
     ["blog", "博客", "https://baojian-notionnext-blog.vercel.app"]
   ];
   const layer = document.querySelector(".windows");
-  const iconBox = document.querySelector(".icons");
+  const iconBox = document.querySelector(".desk-icons, .icons");
   const dock = document.querySelector(".dock");
   const appname = document.querySelector(".appname");
   let z = 5;

@@ -15,23 +15,36 @@
 <body>
   <div class="mac" data-presence>
     <header class="menubar">
-      <div class="menuleft">
-        <span class="mark" aria-hidden="true"></span>
-        <b class="appname">访达</b>
-        <span>文件</span><span>编辑</span><span>显示</span><span>前往</span><span>窗口</span><span>帮助</span>
+      <div class="mb-left">
+        <button type="button" class="mb-item mb-apple" data-menu="apple" aria-label="苹果菜单">
+          <svg viewBox="0 0 20 24" aria-hidden="true"><path fill="currentColor" d="M15.2 12.6c0-2.6 2.1-3.9 2.2-4-1.2-1.8-3.1-2-3.8-2-1.6-.2-3.1.9-3.9.9-.8 0-2-.9-3.3-.9-1.7 0-3.3 1-4.2 2.5-1.8 3.1-.5 7.8 1.3 10.3.9 1.2 1.9 2.6 3.2 2.5 1.3-.1 1.8-.8 3.3-.8 1.5 0 1.9.8 3.3.8 1.4 0 2.3-1.3 3.1-2.5 1-1.5 1.4-2.9 1.4-3-.1 0-2.6-1.1-2.6-3.8z"/><path fill="currentColor" d="M12.9 4.2c.7-.9 1.2-2.1 1-3.3-1.1.1-2.3.7-3 1.6-.7.8-1.3 2-1.1 3.2 1.2.1 2.4-.6 3.1-1.5z"/></svg>
+        </button>
+        <button type="button" class="mb-item mb-appname" data-menu="app"><b class="appname">访达</b></button>
+        <button type="button" class="mb-item" data-menu="file">文件</button>
+        <button type="button" class="mb-item" data-menu="edit">编辑</button>
+        <button type="button" class="mb-item" data-menu="view">显示</button>
+        <button type="button" class="mb-item" data-menu="go">前往</button>
+        <button type="button" class="mb-item" data-menu="window">窗口</button>
+        <button type="button" class="mb-item" data-menu="help">帮助</button>
       </div>
-      <div class="menuright">
-        <a href="phone.html">iPhone</a>
-        <span data-presence-label>连接中</span>
-        <span class="battery" aria-hidden="true"></span>
+      <div class="mb-right">
+        <a class="mb-item mb-link" href="phone.html" title="切到 iPhone 版">iPhone</a>
+        <span class="mb-presence" data-presence-label>连接中</span>
+        <span class="mb-status" aria-hidden="true">
+          <svg class="st-ic" viewBox="0 0 18 14"><path d="M1.4 4.6a11 11 0 0 1 15.2 0" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M4 7.4a7 7 0 0 1 10 0" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M6.6 10.1a3.2 3.2 0 0 1 4.8 0" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="9" cy="12.4" r="1.1" fill="currentColor"/></svg>
+          <svg class="st-ic st-battery" viewBox="0 0 26 14"><rect x="1" y="2" width="21" height="10" rx="3" fill="none" stroke="currentColor" stroke-width="1.3" opacity=".7"/><rect x="3" y="4" width="15" height="6" rx="1.5" fill="currentColor"/><path d="M23.5 5.2v3.6a2 2 0 0 0 0-3.6z" fill="currentColor" opacity=".7"/></svg>
+          <svg class="st-ic" viewBox="0 0 16 14"><circle cx="7" cy="6.4" r="4.3" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M10.4 9.8 14 13.2" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <svg class="st-ic" viewBox="0 0 18 14"><rect x="1.5" y="2" width="6.5" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="1.3"/><rect x="10" y="2" width="6.5" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="1.3"/><circle cx="4.8" cy="5" r="1" fill="currentColor"/><circle cx="13.2" cy="9" r="1" fill="currentColor"/></svg>
+        </span>
         <time class="clock"></time>
       </div>
     </header>
     <div class="desktop">
-      <div class="icons"></div>
+      <div class="desk-icons" aria-label="桌面项目"></div>
       <div class="windows"></div>
     </div>
     <nav class="dock" aria-label="程序坞"></nav>
+    <div class="menu-pop" hidden></div>
     <div class="cursors"></div>
   </div>
   <script src="profile.js"></script>
