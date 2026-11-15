@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>杨锟的 iPhone</title>
+  <meta name="theme-color" content="#000">
+  <link rel="icon" href="images/favicon.ico">
+  <link rel="stylesheet" href="phone.css">
+</head>
+<body>
+  <div class="device">
+    <div class="phone" data-presence>
+      <header class="status">
+        <span data-time>9:41</span>
+        <i class="island"></i>
+        <span class="glyphs" aria-hidden="true"><b class="sig"></b><b class="wifi"></b><b class="batt"></b></span>
+      </header>
+      <section class="lock">
+        <p class="lock-date" data-date></p>
+        <p class="lock-time" data-time>9:41</p>
+        <div class="lock-bottom">
+          <span class="orb"></span>
+          <span class="orb cam"></span>
+        </div>
+        <p class="hint">向上轻扫以打开</p>
+        <i class="homebar"></i>
+      </section>
+      <div class="home hidden">
+        <p class="pill" data-presence-label>连接中</p>
+        <div class="grid"></div>
+        <nav class="dock" aria-label="程序坞"></nav>
+        <i class="homebar"></i>
+      </div>
+      <section class="sheet hidden">
+        <header class="sheet-head"><button type="button">主屏幕</button><h1></h1></header>
+        <div class="sheet-body"></div>
+        <i class="homebar dark"></i>
+      </section>
+      <div class="cursors"></div>
+    </div>
+  </div>
+  <script src="profile.js"></script>
+  <script src="views.js"></script>
+  <script src="icons.js"></script>
+  <script src="presence-client.js"></script>
+  <script src="phone.js"></script>
+</body>
+</html>

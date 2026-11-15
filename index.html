@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>剑室</title>
+  <script>
+    var phone = matchMedia("(max-width: 760px), (pointer: coarse)").matches;
+    location.replace(phone ? "phone.html" : "desktop.html");
+  </script>
+</head>
+<body>
+  <p><a href="desktop.html">桌面</a> · <a href="phone.html">手机</a></p>
+</body>
+</html>
