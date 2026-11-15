@@ -666,3 +666,14 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 2px solid 
 @media (prefers-reduced-motion: reduce) {
   .scr, .scr.zoom, .lockscreen, .home, .unlock-btn { transition-duration: .01ms !important; animation: none !important; }
 }
+
+@media (max-width: 899px) {
+  .island { display: none; }
+  .status { top: env(safe-area-inset-top, 0px); height: 34px; padding-top: 0; }
+  .phone { height: 100dvh; }
+}
+.ios-web { display: flex; flex-direction: column; height: 100%; min-height: 70vh; background: #fff; }
+.ios-url { padding: 8px 12px; font-size: 12px; color: #666; overflow: hidden; white-space: nowrap; }
+.ios-web iframe { flex: 1; width: 100%; border: 0; min-height: 68vh; background: #fff; }
+.scr-body .call-screen { position: absolute; }
+.scr.phone-app .scr-body { position: relative; min-height: 100%; }
