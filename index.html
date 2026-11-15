@@ -2,13 +2,21 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>剑室</title>
   <script>
-    var phone = matchMedia("(max-width: 760px), (pointer: coarse)").matches;
-    location.replace(phone ? "phone.html" : "desktop.html");
+    function phone() {
+      var ua = navigator.userAgent || "";
+      if (/iPhone|iPod|Android.+Mobile|Windows Phone/i.test(ua)) return true;
+      var w = Math.min(screen.width || 1200, screen.height || 1200);
+      if (/Android|iPad/i.test(ua) && w <= 900) return true;
+      try { return matchMedia("(pointer: coarse) and (max-width: 820px)").matches; }
+      catch (e) { return w <= 820; }
+    }
+    location.replace(phone() ? "phone.html" : "desktop.html");
   </script>
 </head>
 <body>
-  <p><a href="desktop.html">桌面</a> · <a href="phone.html">手机</a></p>
+  <p><a href="desktop.html?desk=1">桌面</a> · <a href="phone.html">手机</a></p>
 </body>
 </html>

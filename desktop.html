@@ -4,6 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>杨锟的 Mac</title>
+  <script>
+    if (!/[?&]desk=1(?:&|$)/.test(location.search) && /iPhone|iPod|Android.+Mobile|Windows Phone/i.test(navigator.userAgent)) {
+      location.replace("phone.html");
+    }
+  </script>
   <link rel="icon" href="images/favicon.ico">
   <link rel="stylesheet" href="desk.css">
 </head>
