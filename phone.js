@@ -49,12 +49,33 @@
 
   function unlock() {
     lock.classList.add("out");
+    lock.style.transform = "";
     phone.classList.add("is-unlocked");
   }
   document.querySelector("#unlock-btn").addEventListener("click", unlock);
-  let startY = 0;
-  lock.addEventListener("pointerdown", (e) => { startY = e.clientY; });
-  lock.addEventListener("pointerup", (e) => { if (startY - e.clientY > 40) unlock(); });
+  lock.addEventListener("pointerdown", (e) => {
+    if (phone.classList.contains("is-unlocked")) return;
+    if (e.target.closest("button") && e.target.id !== "unlock-btn") return;
+    lock.setPointerCapture(e.pointerId);
+    const start = e.clientY;
+    lock.classList.add("dragging");
+    const move = (ev) => {
+      const dy = Math.max(0, start - ev.clientY);
+      lock.style.transform = `translateY(${-dy}px)`;
+    };
+    const end = (ev) => {
+      lock.removeEventListener("pointermove", move);
+      lock.removeEventListener("pointerup", end);
+      lock.removeEventListener("pointercancel", end);
+      lock.classList.remove("dragging");
+      const dy = start - ev.clientY;
+      if (dy > 64) unlock();
+      else lock.style.transform = "";
+    };
+    lock.addEventListener("pointermove", move);
+    lock.addEventListener("pointerup", end);
+    lock.addEventListener("pointercancel", end);
+  });
 
   function finderHtml() {
     if (spot.project) return views.finderProject(spot.project);
@@ -156,10 +177,20 @@
     }
   });
 
-  let startBar = 0;
-  document.querySelector("#gesture-zone").addEventListener("pointerdown", (e) => { startBar = e.clientY; });
-  document.querySelector("#gesture-zone").addEventListener("pointerup", (e) => {
-    if (startBar - e.clientY > 24) closeTop();
+  const zone = document.querySelector("#gesture-zone");
+  zone.addEventListener("pointerdown", (e) => {
+    zone.setPointerCapture(e.pointerId);
+    const start = e.clientY;
+    const end = (ev) => {
+      zone.removeEventListener("pointerup", end);
+      zone.removeEventListener("pointercancel", end);
+      const dy = start - ev.clientY;
+      if (dy < 28) return;
+      if (!phone.classList.contains("is-unlocked")) unlock();
+      else closeTop();
+    };
+    zone.addEventListener("pointerup", end);
+    zone.addEventListener("pointercancel", end);
   });
 
   function startCall(name) {
